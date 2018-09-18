@@ -1,0 +1,27 @@
+{% extends 'producthunt/base.html' %}
+
+{% block content %}
+
+{% for product in products.all %}<br>
+    <marquee bgcolor=orange width=150 height=20 direction=right> <font color="black">{{ product.hunter.username }}</font></marquee>
+
+  <div class="row pt-3">
+  <div class="col-2" onclick="window.location='{% url 'details' product.id %}';" style="cursor: pointer;">
+       <img src="{{ product.icone.url }}" class="img-fluid" />
+    </div>
+    <div class="col-6" onclick="window.location='{% url 'details' product.id %}';" style="cursor: pointer;">
+        <h1><font color="blue">{{ product.title }}</font></h1>
+        <p><font color="#ff4500">{{ product.summary }}</font></p>
+    </div>
+    <div class="col-4">
+        <a href="javascript:{document.getElementById('upvote{{ product.id }}').submit()}"><button class="btn btn-primary btn-lg btn-block">Like {{ product.votes_total }}</button></a>
+    </div>
+  </div>
+
+<form id="upvote{{ product.id }}" method="POST" action="{% url 'upvote' product.id %}">
+  {% csrf_token%}
+  <input type="hidden">
+</form>
+
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'producthunt/base.html' %}
+
+
+{% block content %}
+
+<br><br>
+
+<marquee bgcolor=orange width=100% height=50px direction=right>   <h3><font color="blue">{{ product.hunter.username }}</font></h3></marquee><br><br>
+
+<div class="row">
+<div class="col-2">
+    <img src="{{ product.icone.url }}" class="img-fluid"/>
+
+</div>
+<div class="col-10">
+    <font color="blue"><h2>{{ product.title }}</h2></font>
+
+</div>
+</div>
+        <br><br>
+<div class="row">
+<div class="col-10">
+    <img src="{{ product.image.url }}" class="img-fluid"/>
+</div>
+
+<div class="col-4">
+    <a href="javascript:{document.getElementById('upvote').submit()}"><button class="btn btn-primary btn-lg btn-block">Like {{ product.votes_total }}</button></a>
+
+</div>
+</div>
+    <div class="row">
+    <div class="col-4">
+        <font color="blue"><h4>{{ product.hunter.username }}</h4></font>
+    </div>
+    <div class="col-4">
+        <font color="#ee82ee"><h4>{{ product.pub_date_pretty }}</h4></font>
+    </div>
+    </div>
+    <br>
+        <div class="row">
+    <div class="col-4">
+        <h5><font color="red">{{ product.body }}</font></h5>
+    </div>
+    </div>
+<form id="upvote" method="POST" action="{% url 'upvote' product.id %}">
+  {% csrf_token%}
+  <input type="hidden">
+</form>
+
+
+
+{% endblock %}
